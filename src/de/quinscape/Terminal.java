@@ -1,5 +1,6 @@
 package de.quinscape;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
@@ -10,11 +11,15 @@ public class Terminal {
         return code.toString().substring(0,8);
     }
 
+    private FileWriter createNewFile() throws IOException{
+        return new FileWriter(fileNameGenerator() + ".txt");
+    }
+
     private void writeText() {
         try {
             Scanner scanner = new Scanner(System.in);
             boolean isOver = true;
-            java.io.FileWriter writer = new java.io.FileWriter(fileNameGenerator() + ".txt");
+            FileWriter writer = createNewFile();
             while (isOver) {
                 String userInput = scanner.nextLine();
                 if (!userInput.isEmpty()) {

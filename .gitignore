@@ -1,4 +1,4 @@
-out
-.txt
+*.txt
 .DS_Store
 .idea/
+/out/
