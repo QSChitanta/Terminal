@@ -1,0 +1,8 @@
+Hi my name is ricko
+
+
+wenn 49e7 nicht existiert, lege es an
+sonst kreiere eine neue datei
+
+if 49e7.exists
+= new java.io.FileWriter
