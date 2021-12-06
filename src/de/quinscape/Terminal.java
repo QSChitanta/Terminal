@@ -42,4 +42,8 @@ public class Terminal {
         printInstructions();
         writeText();
     }
+
+    public void startApplicationWithExistingFile(String arg) {
+
+    }
 }

@@ -1,10 +1,13 @@
 package de.quinscape;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Terminal terminal = new Terminal();
-        terminal.startApplication();
+        if(args.length != 0){
+            terminal.startApplication();
+        } else {
+            terminal.startApplicationWithExistingFile(args[0]);
+        }
+
     }
 }
