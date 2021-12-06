@@ -24,7 +24,6 @@ public class Terminal {
 
     private void writeText() {
         try {
-
             boolean isOver = true;
             if (!doesFileExist(savedFile())) {
                 java.io.FileWriter writer = new java.io.FileWriter(fileNameGenerator() + ".txt");
@@ -40,8 +39,8 @@ public class Terminal {
             } else {
                 while (isOver) {
                     String userInput = scanner.nextLine();
+                    java.io.FileWriter writer = new java.io.FileWriter(savedFile().getName());
                     try {
-                        java.io.FileWriter writer = new java.io.FileWriter(savedFile());
                         if (!userInput.isEmpty()) {
                             writer.append(userInput).append("\n");
                         } else {
@@ -55,6 +54,12 @@ public class Terminal {
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void appendText() throws IOException {
+        try (java.io.FileWriter wr = new java.io.FileWriter("49e7b828-c9a2-46e4-93f5-cbecf45a013c.txt", true)) {
+            wr.append("\n").append(scanner.nextLine());
         }
     }
 
@@ -75,6 +80,7 @@ public class Terminal {
     }
 
     public void startApplication() {
+        System.out.println(savedFile().getName());
         printCheckIfFileExists();
         printInstructions();
         writeText();
