@@ -24,6 +24,7 @@ public class Terminal {
 
     private void writeText() {
         try {
+
             boolean isOver = true;
             if (!doesFileExist(savedFile())) {
                 java.io.FileWriter writer = new java.io.FileWriter(fileNameGenerator() + ".txt");
