@@ -1,7 +1,7 @@
 package de.quinscape;
 
-import java.io.*;
-
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -37,29 +37,20 @@ public class Terminal {
                     }
                 }
             } else {
-                while (isOver) {
-                    String userInput = scanner.nextLine();
-                    java.io.FileWriter writer = new java.io.FileWriter(savedFile().getName());
-                    try {
-                        if (!userInput.isEmpty()) {
-                            writer.append(userInput).append("\n");
+                try (java.io.FileWriter wr = new java.io.FileWriter("49e7b828-c9a2-46e4-93f5-cbecf45a013c.txt", true)) {
+                    while (isOver) {
+                        String userInput = scanner.nextLine();
+                        if (!userInput.isEmpty()){
+                            wr.write(userInput + "\n");
                         } else {
                             isOver = false;
-                            writer.close();
+                            wr.close();
                         }
-                    } catch (IOException e) {
-                        System.out.println("Error: " + e.getMessage());
                     }
                 }
             }
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    private void appendText() throws IOException {
-        try (java.io.FileWriter wr = new java.io.FileWriter("49e7b828-c9a2-46e4-93f5-cbecf45a013c.txt", true)) {
-            wr.append("\n").append(scanner.nextLine());
         }
     }
 
@@ -80,10 +71,8 @@ public class Terminal {
     }
 
     public void startApplication() {
-        System.out.println(savedFile().getName());
         printCheckIfFileExists();
         printInstructions();
         writeText();
     }
 }
-//TODO ich will das mein UUID nur 8 Zeichen erstellt
