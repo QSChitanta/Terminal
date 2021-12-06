@@ -9,15 +9,13 @@ public class Terminal {
     private static final Scanner scanner = new Scanner(System.in);
     private boolean isOver = true;
 
-    private boolean doesFileExist(String fileName){
-        fileName = mainFile();
-        return fileName.isBlank();
+    private File savedFile() {
+        return new File("/Users/pchitanta/Documents/JavaCourseUdemy/Terminal/49e7b828-c9a2-46e4-93f5-" +
+                "cbecf45a013c.txt");
     }
 
-    public String mainFile(){
-        File mainFile = new File("/Users/pchitanta/Documents/JavaCourseUdemy/Terminal/49e7b828-c9a2-46e4-93f5-" +
-                "cbecf45a013c.txt");
-        return mainFile.toString();
+    private boolean doesFileExist(File file) {
+        return file.exists();
     }
 
     private String fileNameGenerator() {
@@ -48,30 +46,30 @@ public class Terminal {
         }
     }
 
-    private void printIfFileExists() {
-        if (doesFileExist(mainFile())) {
+    private void printCheckIfFileExists() {
+        if (doesFileExist(savedFile())) {
             System.out.println("Main File already exists.");
         } else {
             System.out.println("Main file does not exist. Creating main...");
         }
     }
 
-    private void printAppendMessage() {
-        System.out.println("Append text to existing file: ");
-    }
-
-    private void printWriteMessage() {
-        System.out.println("Write your text below: ");
+    private void printInstructions() {
+        if (doesFileExist(savedFile())) {
+            System.out.println("Append text to existing file: ");
+        } else {
+            System.out.println("Write your text below: ");
+        }
     }
 
     public void startApplication() throws IOException {
-        if (doesFileExist(mainFile())) {
-            printIfFileExists();
-            printAppendMessage();
+        if (doesFileExist(savedFile())) {
+            printCheckIfFileExists();
+            printInstructions();
             appendText();
         } else {
-            printIfFileExists();
-            printWriteMessage();
+            printCheckIfFileExists();
+            printInstructions();
             writeText();
         }
     }
