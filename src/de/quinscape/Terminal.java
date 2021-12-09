@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Terminal {
 
-    private FileWriter file;
+    private FileWriter fileWriter;
 
     public void appendToFile() throws IOException {
         printInstructions();
@@ -17,7 +17,7 @@ public class Terminal {
         writeText();
     }
 
-    public void appendToGivenFile(String filename) throws IOException {
+    public void appendToExisting(String filename) throws IOException {
         printInstructions();
         startWithFileOrCreateNew(filename);
         writeText();
@@ -30,25 +30,27 @@ public class Terminal {
             while (isOver) {
                 String userInput = scanner.nextLine();
                 if (!userInput.isEmpty()) {
-                    file.append(userInput).append("\n");
+                    fileWriter.append(userInput).append("\n");
                 } else {
                     isOver = false;
                 }
             }
-            file.close();
+            fileWriter.close();
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     private void printInstructions() {
-        System.out.println("Write your text below: ");
+        System.out.println("(IMPORTANT: If you have a text file already and want to append text, " +
+                "add it to your IDE's main configuration)");
+        System.out.println("Write your text below and press return on an empty line to exit");
     }
 
     public void startWithFileOrCreateNew(String filename) throws IOException {
         if (Files.exists(Path.of(filename))) {
             try {
-                file = new FileWriter(filename, true);
+                fileWriter = new FileWriter(filename, true);
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
             }
@@ -58,7 +60,7 @@ public class Terminal {
     }
 
     private void createNewFile() throws IOException {
-        file = new FileWriter(fileNameGenerator() + ".txt");
+        fileWriter = new FileWriter(fileNameGenerator() + ".txt");
     }
 
     private String fileNameGenerator() {
